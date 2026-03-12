@@ -1,0 +1,39 @@
+{
+  "name": "ts-template-pnpm",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "files": [
+    "./dist/src"
+  ],
+  "keywords": [],
+  "author": "tabcat",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "pnpm install && pnpm build",
+    "lint": "dprint check",
+    "format": "dprint fmt",
+    "build": "tsc",
+    "test": "vitest --dir test --config vitest.config.ts --run",
+    "test:watch": "vitest --dir test --config vitest.config.ts",
+    "api-docs": "typedoc src",
+    "ci": "pnpm build && pnpm lint && pnpm test"
+  },
+  "lint-staged": {
+    "*/**": "pnpm run format"
+  },
+  "devDependencies": {
+    "dprint": "^0.52.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
+    "typedoc": "^0.28.17",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}
