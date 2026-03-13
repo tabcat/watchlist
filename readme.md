@@ -17,13 +17,11 @@ import { watchlist } from "@tabcat/watchlist";
 
 const { set, ready, stop } = watchlist("/etc/myapp/allowlist.txt");
 
-// set is already populated from the current file contents
-console.log(set.has("some-entry")); // true / false
-
 // ready resolves once the file watcher is active
 await ready;
 
-// set stays in sync as the file is edited, created, or deleted
+// set is populated from the current file contents and stays in sync as the file is edited, created, or deleted
+console.log(set.has("some-entry")); // true / false
 // ...
 
 // stop the watcher when done
