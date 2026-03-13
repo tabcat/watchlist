@@ -41,5 +41,11 @@
   "dependencies": {
     "@libp2p/logger": "^6.2.2",
     "chokidar": "^5.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "dprint",
+      "esbuild"
+    ]
   }
 }
