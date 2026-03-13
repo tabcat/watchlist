@@ -7,7 +7,10 @@ const log = logger("watchlist");
 
 function readLines(filePath: string): string[] {
   try {
-    return readFileSync(filePath, "utf8").split("\n").map((s) => s.trim()).filter(Boolean);
+    return readFileSync(filePath, "utf8")
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
   } catch (err: unknown) {
     if ((err as NodeJS.ErrnoException).code === "ENOENT") {
       return [];

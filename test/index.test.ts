@@ -5,10 +5,7 @@ import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { watchlist } from "../src/index.js";
 
-const dir = join(
-  tmpdir(),
-  "watchlist-test-" + randomBytes(4).toString("hex"),
-);
+const dir = join(tmpdir(), "watchlist-test-" + randomBytes(4).toString("hex"));
 
 function tmpFile(): string {
   return join(dir, randomBytes(4).toString("hex") + ".txt");
