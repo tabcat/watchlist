@@ -3,11 +3,11 @@ import { mkdirSync, rmSync, unlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { newlineSet } from "../src/index.js";
+import { watchlist } from "../src/index.js";
 
 const dir = join(
   tmpdir(),
-  "newline-set-test-" + randomBytes(4).toString("hex"),
+  "watchlist-test-" + randomBytes(4).toString("hex"),
 );
 
 function tmpFile(): string {
@@ -35,12 +35,12 @@ afterEach(() => {
   rmSync(dir, { recursive: true, force: true });
 });
 
-describe("newlineSet", () => {
+describe("watchlist", () => {
   it("reads initial file content", async () => {
     const file = tmpFile();
     writeFileSync(file, "apple\nbanana\ncherry\n");
 
-    const { set, stop } = newlineSet(file);
+    const { set, stop } = watchlist(file);
 
     expect(set.size).toBe(3);
     expect(set.has("apple")).toBe(true);
@@ -53,7 +53,7 @@ describe("newlineSet", () => {
   it("returns empty set when file does not exist", async () => {
     const file = tmpFile();
 
-    const { set, stop } = newlineSet(file);
+    const { set, stop } = watchlist(file);
 
     expect(set.size).toBe(0);
 
@@ -64,7 +64,7 @@ describe("newlineSet", () => {
     const file = tmpFile();
     writeFileSync(file, "one\ntwo\n");
 
-    const { set, ready, stop } = newlineSet(file);
+    const { set, ready, stop } = watchlist(file);
     await ready;
 
     writeFileSync(file, "three\nfour\nfive\n");
@@ -82,7 +82,7 @@ describe("newlineSet", () => {
     const file = tmpFile();
     writeFileSync(file, "alpha\nbeta\n");
 
-    const { set, ready, stop } = newlineSet(file);
+    const { set, ready, stop } = watchlist(file);
     await ready;
 
     unlinkSync(file);
@@ -96,7 +96,7 @@ describe("newlineSet", () => {
   it("updates set when file is created after init", async () => {
     const file = tmpFile();
 
-    const { set, ready, stop } = newlineSet(file);
+    const { set, ready, stop } = watchlist(file);
     await ready;
 
     writeFileSync(file, "x\ny\nz\n");
@@ -113,7 +113,7 @@ describe("newlineSet", () => {
     const file = tmpFile();
     writeFileSync(file, "  apple  \n  banana\ncherry  \r\n");
 
-    const { set, stop } = newlineSet(file);
+    const { set, stop } = watchlist(file);
 
     expect(set.size).toBe(3);
     expect(set.has("apple")).toBe(true);
@@ -127,7 +127,7 @@ describe("newlineSet", () => {
     const file = tmpFile();
     writeFileSync(file, "initial\n");
 
-    const { set, ready, stop } = newlineSet(file);
+    const { set, ready, stop } = watchlist(file);
     await ready;
 
     await stop();

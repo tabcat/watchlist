@@ -17,7 +17,7 @@ function readLines(filePath: string): string[] {
 function makeTmpFile(lineCount: number, lineFn: () => string): string {
   const path = join(
     tmpdir(),
-    `newline-set-bench-${randomBytes(4).toString("hex")}.txt`,
+    `watchlist-bench-${randomBytes(4).toString("hex")}.txt`,
   );
   const content = Array.from({ length: lineCount }, lineFn).join("\n") + "\n";
   writeFileSync(path, content, "utf8");

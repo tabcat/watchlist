@@ -1,4 +1,4 @@
-# @tabcat/newline-set
+# @tabcat/watchlist
 
 Reads a newline-delimited text file into a `Set<string>` and keeps it live as the file changes.
 
@@ -7,15 +7,15 @@ Useful for hot-reloadable allowlists, blocklists, peer ID lists, IP lists, or an
 ## Install
 
 ```sh
-npm install @tabcat/newline-set
+npm install @tabcat/watchlist
 ```
 
 ## Usage
 
 ```ts
-import { newlineSet } from "@tabcat/newline-set";
+import { watchlist } from "@tabcat/watchlist";
 
-const { set, ready, stop } = newlineSet("/etc/myapp/allowlist.txt");
+const { set, ready, stop } = watchlist("/etc/myapp/allowlist.txt");
 
 // set is already populated from the current file contents
 console.log(set.has("some-entry")); // true / false

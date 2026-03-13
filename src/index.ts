@@ -3,7 +3,7 @@ import { watch } from "chokidar";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
-const log = logger("newline-set");
+const log = logger("watchlist");
 
 function readLines(filePath: string): string[] {
   try {
@@ -16,7 +16,7 @@ function readLines(filePath: string): string[] {
   }
 }
 
-export function newlineSet(
+export function watchlist(
   filePath: string,
 ): { set: Set<string>; ready: Promise<void>; stop: () => Promise<void>; } {
   const absPath = resolve(filePath);

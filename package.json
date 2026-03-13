@@ -1,5 +1,5 @@
 {
-  "name": "@tabcat/newline-set",
+  "name": "@tabcat/watchlist",
   "version": "1.0.0",
   "description": "reads a newline-delimited file into a live Set<string> that stays in sync as the file changes",
   "type": "module",
