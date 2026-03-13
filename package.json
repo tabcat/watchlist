@@ -28,7 +28,7 @@
     "ci": "pnpm build && pnpm lint && pnpm test"
   },
   "lint-staged": {
-    "*/**": "pnpm run format"
+    "*/**": "pnpm run format --allow-no-files"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
