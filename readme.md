@@ -1,19 +1,37 @@
-# ts-template-pnpm
+# @tabcat/newline-set
 
-## Setup
+Reads a newline-delimited text file into a `Set<string>` and keeps it live as the file changes.
 
-Run `pnpm up --latest` and move `workflows` into `.github/workflows`.
+Useful for hot-reloadable allowlists, blocklists, peer ID lists, IP lists, or any collection of strings that operators need to edit without restarting a process.
 
-### Add NPM_TOKEN to github secrets
+## Install
 
-For the publish workflow to work, you need to add your NPM token as a secret to the repository.
+```sh
+npm install @tabcat/newline-set
+```
 
-### Enable Github Pages for Docs
+## Usage
 
-`Repo Settings > Pages > Build and deployment > Github Actions`
+```ts
+import { newlineSet } from "@tabcat/newline-set";
 
-This will let the pages workflow complete.
+const { set, ready, stop } = newlineSet("/etc/myapp/allowlist.txt");
 
-The docs page will be published at https://\<user or org name\>.github.io/\<repo name\>
+// set is already populated from the current file contents
+console.log(set.has("some-entry")); // true / false
 
-> Done!
+// ready resolves once the file watcher is active
+await ready;
+
+// set stays in sync as the file is edited, created, or deleted
+// ...
+
+// stop the watcher when done
+await stop();
+```
+
+The file is expected to have one entry per line. Blank lines and leading/trailing whitespace are ignored. If the file does not exist, the set starts empty and will populate if the file is created later.
+
+## API
+
+See the [API docs](https://tabcat.github.io/newline-set/) for full reference.
